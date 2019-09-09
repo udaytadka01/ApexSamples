@@ -1,3 +1,4 @@
+/*sample code containing SOQL violation*/
 public class hello {
    public hello() {
    	for(Integer i = 0; i < 5; i++) {
