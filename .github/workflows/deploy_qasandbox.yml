@@ -10,19 +10,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-if: github.event.pull_request.merged
+    if: github.event.pull_request.merged
+    steps:
+    - name: checkout
+      if: github.event.pull_request.merged
+      uses: actions/checkout@v1
+    with:
+      ref: master
 
     steps:
-      - name: checkout
-        if: github.event.pull_request.merged
-        uses: actions/checkout@v1
-with:
-ref: master
-
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo deploy executed
