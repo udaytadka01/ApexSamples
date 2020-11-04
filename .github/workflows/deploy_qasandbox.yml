@@ -1,4 +1,3 @@
-# this deploy file
 name: Deploy
 
 on:
@@ -8,17 +7,21 @@ on:
       - master
 
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged
-    steps:
-    - name: checkout
-      if: github.event.pull_request.merged
-      uses: actions/checkout@v1
-    with:
-      ref: master
 
     steps:
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo deploy executed
+      - name: checkout
+        if: github.event.pull_request.merged
+        uses: actions/checkout@v1
+    with:
+    ref: master
+    
+  deploy:      
+    runs-on: ubuntu-latest
+    needs: validate
+    
+    steps:
+    - name: deploy to prod
+      run: echo deployment complete
